@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'popular.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,12 +18,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -38,11 +42,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   _tabBar() {
     return TabBar(
       controller: _controller,
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontFamily: "Comfortaa",
         fontSize: 24,
         fontWeight: FontWeight.bold),
-      tabs: [
+      tabs: const [
         Text("Popular"),
         Text("NowPlaying"),
         Text("Up Coming"),
@@ -50,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ],
       padding: const EdgeInsets.only(top: 71, left: 25),
       indicatorColor: Colors.black,
-      indicatorPadding: EdgeInsets.symmetric(horizontal: 10),
-      labelPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 2),
+      indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 2),
       labelColor: Colors.black,
       unselectedLabelColor: Colors.black.withOpacity(0.5),
       isScrollable: true
@@ -59,22 +63,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   _tabBarview() {
-    return Container(
-      child: TabBarView(
-        controller: _controller,
-        children: [
-          PopularView(),
-          Container(
-            color: Colors.blue
-          ),
-          Container(
-            color: Colors.red
-          ),
-          Container(
-            color: Colors.orange
-          )
-        ],
-      ),
+    return TabBarView(
+      controller: _controller,
+      children: [
+        const PopularView(),
+        Container(
+          color: Colors.blue
+        ),
+        Container(
+          color: Colors.red
+        ),
+        Container(
+          color: Colors.orange
+        )
+      ],
     );
   }
 
