@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_film/API/APIs.dart';
+import 'package:movie_film/models/movie_models.dart';
+import 'package:provider/provider.dart';
 import 'popular.dart';
 
 void main() {
@@ -11,15 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Comfortaa",
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity
-      ),
-      home: const HomeScreen(),
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            fontFamily: "Comfortaa",
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity),
+        home: FutureProvider<List<ItemPopular>>( create: (_) => ApiServices().getItemPopularList(),
+                  initialData: const [], child: const HomeScreen()));
   }
 }
 
@@ -30,7 +32,8 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   TabController? _controller;
 
   @override
@@ -41,25 +44,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   _tabBar() {
     return TabBar(
-      controller: _controller,
-      labelStyle: const TextStyle(
-        fontFamily: "Comfortaa",
-        fontSize: 24,
-        fontWeight: FontWeight.bold),
-      tabs: const [
-        Text("Popular"),
-        Text("NowPlaying"),
-        Text("Up Coming"),
-        Text("Top Rate")
-      ],
-      padding: const EdgeInsets.only(top: 71, left: 25),
-      indicatorColor: Colors.black,
-      indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
-      labelPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 2),
-      labelColor: Colors.black,
-      unselectedLabelColor: Colors.black.withOpacity(0.5),
-      isScrollable: true
-    );
+        controller: _controller,
+        labelStyle: const TextStyle(
+            fontFamily: "Comfortaa", fontSize: 24, fontWeight: FontWeight.bold),
+        tabs: const [
+          Text("Popular"),
+          Text("NowPlaying"),
+          Text("Up Coming"),
+          Text("Top Rate")
+        ],
+        padding: const EdgeInsets.only(top: 71, left: 25),
+        indicatorColor: Colors.black,
+        indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 2),
+        labelColor: Colors.black,
+        unselectedLabelColor: Colors.black.withOpacity(0.5),
+        isScrollable: true);
   }
 
   _tabBarview() {
@@ -67,33 +67,19 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       controller: _controller,
       children: [
         const PopularView(),
-        Container(
-          color: Colors.blue
-        ),
-        Container(
-          color: Colors.red
-        ),
-        Container(
-          color: Colors.orange
-        )
+        Container(color: Colors.blue),
+        Container(color: Colors.red),
+        Container(color: Colors.orange)
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
+    return  Scaffold(
         backgroundColor: Colors.white,
-        bottom: _tabBar()
-      ),
-      body: _tabBarview()
-    );
+        appBar: AppBar(
+            elevation: 0, backgroundColor: Colors.white, bottom: _tabBar()),
+        body: _tabBarview());
   }
 }
-
-
-
